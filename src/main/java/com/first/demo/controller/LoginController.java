@@ -15,6 +15,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.first.demo.model.Available;
+import com.first.demo.model.BookingModel;
+import com.first.demo.model.CompanyDetails;
 import com.first.demo.model.User;
 import com.first.demo.service.LoginService;
 
@@ -42,7 +45,60 @@ public class LoginController {
 			return isLoggedIn;
 		}
 	}
-
+	
+	@PostMapping("/companyRegister")
+	public boolean companyRegister(@RequestBody CompanyDetails companyDetails) {
+			return loginService.companyRegister(companyDetails);
+			
+	}
+	
+	@PostMapping("/newBooking")
+	public boolean newBooking(@RequestBody BookingModel bookingModel) {
+			return loginService.newBooking(bookingModel);
+	}
+	
+	@PostMapping("/newPlantAvail")
+	public boolean newPlantAvail(@RequestBody Available available) {
+			return loginService.newPlantAvail(available);
+	}
+	
+	@GetMapping("/allAvailable")
+	public List<Available> allAvailable() {
+			return loginService.allAvailable();
+	}
+	
+	@GetMapping("/getVailableCount")
+	public int getVailable() {
+			return loginService.getAvailable();
+	}
+	
+	@GetMapping("/allBooking")
+	public List<BookingModel> allBooking() {
+			return loginService.allBooking();
+	}
+	
+	
+	@GetMapping("/bookingById/{bookingId}")
+	public BookingModel getBookingById(@PathVariable String bookingId) {
+			return loginService.getBookingById(bookingId);
+	}
+	
+	@GetMapping("/bookingByIdMonth/{bookingMonth}")
+	public List<BookingModel> getBookingByBookingDate(@PathVariable String bookingMonth) {
+			return loginService.getBookingByBookingDate(bookingMonth);
+	}
+	
+	@GetMapping("/bookingByIdMonthFree/{bookingMonth}")
+	public List<BookingModel> getBookingByBookingDateFree(@PathVariable String bookingMonth) {
+			return loginService.getBookingByBookingDateFree(bookingMonth);
+	}
+	
+	@GetMapping("/getCompanybyUser/{updateEmailAddress}")
+	public CompanyDetails getCompanybyUser(@PathVariable String updateEmailAddress) {
+			return loginService.getCompanybyUserEmail(updateEmailAddress);
+			
+	}
+	
 	@GetMapping("/getAllUser")
 	public List<User> getAllUser() {
 		System.out.println("cmuihwyywrgryggrtg");
@@ -62,8 +118,4 @@ public class LoginController {
 		return user;
 	}
 
-	@DeleteMapping("/delete")
-	public void delerteByIdCon(@RequestParam Long id) {
-		loginService.deleById(id);
-	}
 }
